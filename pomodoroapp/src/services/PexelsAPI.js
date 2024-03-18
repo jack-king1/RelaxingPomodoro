@@ -3,7 +3,7 @@ import { createClient } from "pexels";
 const client = createClient(process.env.REACT_APP_PEXELS_KEY);
 
 // All requests made with the client will be authenticated
-const query = "Nature waterfall";
+const query = "nature";
 const layout = "landscape";
 
 export function GetBackground(callback) {

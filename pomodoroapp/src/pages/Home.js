@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import TimerDisplay from "../components/TimerDisplay";
 import Navbar from "../components/Navbar";
+import TasksHolder from "../components/TasksHolder";
 
-function Home() {
+function Home(props) {
     return (
         <div className="w-full">
             <Navbar />
-            <TimerDisplay />
+            <TimerDisplay pomodoro={props.pomodoro} />
+            <TasksHolder />
         </div>
     );
 }
