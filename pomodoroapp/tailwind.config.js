@@ -6,6 +6,11 @@ module.exports = {
             fontFamily: {
                 numans: ["Numans", "sans-serif"],
             },
+            fontSize: {
+                "7xl": "5rem", // Example custom size for larger text font
+                "8xl": "6rem", // Another example custom size
+                // Add more custom sizes as needed
+            },
         },
     },
     plugins: [],
