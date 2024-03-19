@@ -9,7 +9,7 @@ function TasksHolder() {
                 <div className="flex gap-2 items-center">
                     <input
                         placeholder="Write Essay"
-                        className="bg-white rounded px-3 py-2 w-full"
+                        className="bg-white rounded px-3 py-2 w-full text-black"
                     ></input>
                     <div>
                         <FaSquarePlus className="text-5xl transition-all hover:text-green-300 hover:cursor-pointer" />
