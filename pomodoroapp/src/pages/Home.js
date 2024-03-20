@@ -23,6 +23,7 @@ function Home(props) {
                 tasks={props.tasks}
                 setTasks={props.setTasks}
                 removeTask={props.removeTask}
+                addTask={props.addTask}
             />
         </div>
     );

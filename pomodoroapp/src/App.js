@@ -44,6 +44,12 @@ function App() {
         setTasks(newArray);
     }
 
+    function AddTask(text) {
+        let newArray = tasks;
+        newArray.push(text);
+        setTasks(newArray);
+    }
+
     return (
         <div className={`w-screen h-screen`}>
             {bgImg != null && timer != null ? (
@@ -64,6 +70,7 @@ function App() {
                             tasks={tasks}
                             setTasks={setTasks}
                             removeTask={RemoveTask}
+                            addTask={AddTask}
                         />
                     </div>
                 </div>
