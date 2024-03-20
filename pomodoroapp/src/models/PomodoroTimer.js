@@ -10,11 +10,13 @@ export default class PomodoroTimer {
 
     CountDownTimer() {
         if (this.liveMinutes > 0 || this.liveSeconds > 0) {
-            if (this.liveSeconds === 0) {
-                this.liveMinutes -= 1;
-                this.liveSeconds = 59;
-            } else {
-                this.liveSeconds -= 1;
+            if (!this.isPaused) {
+                if (this.liveSeconds === 0) {
+                    this.liveMinutes -= 1;
+                    this.liveSeconds = 59;
+                } else {
+                    this.liveSeconds -= 1;
+                }
             }
 
             return {
@@ -26,9 +28,29 @@ export default class PomodoroTimer {
         }
     }
 
-    ChangeStateToLongBreak() {}
+    ChangeStateToLongBreak() {
+        this.liveMinutes = this.longBreak;
+        this.liveSeconds = 0;
+        return { minutes: this.liveMinutes, seconds: this.liveSeconds };
+    }
 
-    ChangeStateToShortBreak() {}
+    ChangeStateToShortBreak() {
+        this.liveMinutes = this.shortBreak;
+        this.liveSeconds = 0;
+        return { minutes: this.liveMinutes, seconds: this.liveSeconds };
+    }
 
-    ChangeStateToPomodoroTimer() {}
+    ChangeStateToPomodoroTimer() {
+        this.liveMinutes = this.pomodoroTime;
+        this.liveSeconds = 0;
+        return { minutes: this.liveMinutes, seconds: this.liveSeconds };
+    }
+
+    PauseTimer() {
+        this.isPaused = !this.isPaused;
+    }
+
+    StopTimer() {
+        this.isPaused = true;
+    }
 }

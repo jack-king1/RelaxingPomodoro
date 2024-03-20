@@ -8,8 +8,9 @@ import PomodoroTimer from "./models/PomodoroTimer";
 function App() {
     const [bgImg, setBackgroundImg] = useState(null);
     const [timer, setTimer] = useState(null);
+    const [timerState, setTimerState] = useState("POMODORO");
     const [pomodoroTimer, setPomodoroTimer] = useState(
-        new PomodoroTimer(1, 5, 15, false)
+        new PomodoroTimer(25, 5, 15, true)
     );
 
     useEffect(() => {
@@ -19,7 +20,6 @@ function App() {
     useEffect(() => {
         const intervalId = setInterval(() => {
             let time = pomodoroTimer.CountDownTimer();
-            console.log(time.minutes, time.seconds);
             setTimer(time);
         }, 1000); // Update the timer every second
 
@@ -43,8 +43,13 @@ function App() {
                     }}
                 >
                     <div className="w-full p-2 mx-auto lg:w-1/3">
-                        {console.log("Timer: ", timer)}
-                        <Home pomodoro={timer} />
+                        <Home
+                            pomodoro={pomodoroTimer}
+                            time={timer}
+                            timerState={timerState}
+                            setTimerState={setTimerState}
+                            setTimer={setTimer}
+                        />
                     </div>
                 </div>
             ) : (

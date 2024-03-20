@@ -7,7 +7,13 @@ function Home(props) {
     return (
         <div className="w-full">
             <Navbar />
-            <TimerDisplay pomodoro={props.pomodoro} />
+            <TimerDisplay
+                pomodoro={props.pomodoro}
+                time={props.time}
+                timerState={props.timerState}
+                setTimerState={props.setTimerState}
+                setTimer={props.setTimer}
+            />
             <TasksHolder />
         </div>
     );
