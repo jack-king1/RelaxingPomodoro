@@ -16,6 +16,14 @@ function TasksHolder(props) {
     function HandleInput(e) {
         setTaskInput(e.target.value);
     }
+
+    const handleKeyPress = (event) => {
+        // Check if the pressed key is Enter (key code 13)
+        if (event.key === "Enter") {
+            CreateNewTask();
+        }
+    };
+
     return (
         <div className="bg-black bg-opacity-70 h-auto w-full text-white font-numans flex flex-col  rounded-3xl p-6 mt-4">
             <div className="text-xl">Tasks</div>
@@ -24,8 +32,10 @@ function TasksHolder(props) {
                     <input
                         value={taskInput}
                         onChange={HandleInput}
-                        placeholder="Write Essay"
+                        placeholder="Enter a new task..."
                         className="bg-white rounded px-3 py-2 w-full text-black"
+                        maxLength={30}
+                        onKeyDown={handleKeyPress} // Attach event handler to input's onKeyPress event
                     ></input>
                     <div onClick={CreateNewTask}>
                         <FaSquarePlus className="text-5xl transition-all hover:text-green-300 hover:cursor-pointer" />

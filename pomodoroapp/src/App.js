@@ -15,8 +15,6 @@ function App() {
     );
 
     useEffect(() => {
-        let testTask = ["Poopy 1", "poppy 2"];
-        setTasks(testTask);
         GetBackground(AssignPhotos);
     }, []);
 
