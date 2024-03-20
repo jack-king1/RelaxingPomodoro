@@ -21,6 +21,10 @@ function App() {
     useEffect(() => {
         const intervalId = setInterval(() => {
             let time = pomodoroTimer.CountDownTimer();
+            document.title =
+                time.minutes.toString().padStart(2, "0") +
+                ":" +
+                time.seconds.toString().padStart(2, "0");
             setTimer(time);
         }, 1000); // Update the timer every second
 
