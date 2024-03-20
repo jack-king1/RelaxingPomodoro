@@ -58,33 +58,33 @@ function TimerDisplay(props) {
             <div className="flex flex-row justify-center gap-6 w-full">
                 <div
                     onClick={() => setTimerState("POMODORO")}
-                    className={`hover:cursor-pointer p-1 rounded font-numans ${
+                    className={`text-center flex items-center  items-center hover:cursor-pointer p-1 rounded font-numans ${
                         props.timerState == "POMODORO"
                             ? "text-black bg-white"
                             : "text-white bg-none"
                     }`}
                 >
-                    Pomodoro
+                    <div>Pomodoro</div>
                 </div>
                 <div
                     onClick={() => setTimerState("SHORT")}
-                    className={`hover:cursor-pointer font-numans p-1 rounded ${
+                    className={`text-center flex items-center hover:cursor-pointer font-numans p-1 rounded ${
                         props.timerState == "SHORT"
                             ? "text-black bg-white"
                             : "text-white bg-none"
                     }`}
                 >
-                    Short Break
+                    <div>Short Break</div>
                 </div>
                 <div
                     onClick={() => setTimerState("LONG")}
-                    className={`hover:cursor-pointer font-numans p-1 rounded ${
+                    className={`text-center flex items-center hover:cursor-pointer font-numans p-1 rounded ${
                         props.timerState == "LONG"
                             ? "text-black bg-white"
                             : "text-white bg-none"
                     }`}
                 >
-                    Long Break
+                    <div>Long Break</div>
                 </div>
             </div>
             <div className="opacity-100 text-8xl text-center w-full">

@@ -3,6 +3,11 @@ import TimerDisplay from "../components/TimerDisplay";
 import Navbar from "../components/Navbar";
 import TasksHolder from "../components/TasksHolder";
 
+//sound when timer runs out, soft metal drum?
+//favicon
+//tab text
+//quote api
+//add remove tasks.
 function Home(props) {
     return (
         <div className="w-full">
@@ -14,7 +19,11 @@ function Home(props) {
                 setTimerState={props.setTimerState}
                 setTimer={props.setTimer}
             />
-            <TasksHolder />
+            <TasksHolder
+                tasks={props.tasks}
+                setTasks={props.setTasks}
+                removeTask={props.removeTask}
+            />
         </div>
     );
 }
