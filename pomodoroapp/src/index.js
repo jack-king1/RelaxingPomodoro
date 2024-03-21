@@ -8,13 +8,11 @@ import UserProvider from "./Contexts/UserContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <React.StrictMode>
-        <UserProvider>
-            <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE}>
-                <App />
-            </GoogleOAuthProvider>
-        </UserProvider>
-    </React.StrictMode>
+    <UserProvider>
+        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE}>
+            <App />
+        </GoogleOAuthProvider>
+    </UserProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

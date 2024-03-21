@@ -3,7 +3,6 @@ import { FaSquarePlus, FaSquareMinus } from "react-icons/fa6";
 import Task from "./Task";
 
 function TasksHolder(props) {
-    console.log(props);
     const [taskInput, setTaskInput] = useState("");
 
     function CreateNewTask() {
