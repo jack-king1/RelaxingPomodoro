@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState, createContext } from "react";
 import axios from "axios";
+import { setDBUser } from "../services/DBAPI";
 export const UserContext = createContext();
 
 function UserProvider({ children }) {
@@ -24,6 +25,7 @@ function UserProvider({ children }) {
                 .then((res) => {
                     setUser(res.data);
                     setLoggedIn(true);
+                    setDBUser({ googleId: res.data.id });
                 })
                 .catch((err) => console.log(err));
         }
