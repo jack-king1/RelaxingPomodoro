@@ -1,13 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaSquarePlus, FaSquareMinus } from "react-icons/fa6";
 import Task from "./Task";
+import { setTask } from "../services/DBAPI";
+import { UserContext } from "../Contexts/UserContext";
 
 function TasksHolder(props) {
+    const userContext = useContext(UserContext);
     const [taskInput, setTaskInput] = useState("");
 
     function CreateNewTask() {
         if (taskInput != "") {
             props.addTask(taskInput);
+            if (userContext.user != null && userContext.loggedIn) {
+                //if user logged in send task to database to save.
+                setTask(userContext.user.id, taskInput);
+            }
+
             setTaskInput("");
         }
     }
@@ -45,6 +53,7 @@ function TasksHolder(props) {
                 {props.tasks.map((task, index) => {
                     return (
                         <Task
+                            key={index}
                             removeTask={props.removeTask}
                             id={index}
                             text={task}

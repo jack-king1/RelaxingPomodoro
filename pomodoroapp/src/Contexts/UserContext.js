@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState, createContext } from "react";
 import axios from "axios";
-import { setDBUser } from "../services/DBAPI";
+import { getTasks, setDBUser } from "../services/DBAPI";
 export const UserContext = createContext();
 
 function UserProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loggedIn, setLoggedIn] = useState(false);
+    const [tasks, setTasks] = useState([]);
     const [eventListeners, setEventListeners] = useState({});
 
     useEffect(() => {
@@ -25,7 +26,19 @@ function UserProvider({ children }) {
                 .then((res) => {
                     setUser(res.data);
                     setLoggedIn(true);
-                    setDBUser({ googleId: res.data.id });
+                    setDBUser({ googleId: res.data.id }).then((res) => {
+                        console.log("User Logged In");
+                    });
+                    console.log("User Logged In");
+                    //fetch user tasks if any here...
+                    getTasks(res.data.id).then((res) => {
+                        let newArray = [];
+                        res.recordset.map((taskItem, index) => {
+                            console.log(index, taskItem.task_text);
+                            newArray.push(taskItem.task_text);
+                            setTasks(newArray);
+                        });
+                    });
                 })
                 .catch((err) => console.log(err));
         }
@@ -59,10 +72,12 @@ function UserProvider({ children }) {
     const userContextValue = {
         loggedIn,
         user,
+        tasks,
         subscribe,
         emit,
         setUser,
         Logout,
+        setTasks,
     };
     return (
         <UserContext.Provider value={userContextValue}>

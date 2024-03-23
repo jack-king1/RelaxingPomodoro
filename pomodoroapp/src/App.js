@@ -1,15 +1,16 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Home from "./pages/Home";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GetBackground } from "./services/PexelsAPI";
 import PomodoroTimer from "./models/PomodoroTimer";
+import { UserContext } from "./Contexts/UserContext";
 
 function App() {
+    const userContext = useContext(UserContext);
     const [bgImg, setBackgroundImg] = useState(null);
     const [timer, setTimer] = useState(null);
     const [timerState, setTimerState] = useState("POMODORO");
-    const [tasks, setTasks] = useState([]);
     const [pomodoroTimer, setPomodoroTimer] = useState(
         new PomodoroTimer(25, 5, 15, true)
     );
@@ -39,17 +40,18 @@ function App() {
 
     function RemoveTask(id) {
         console.log("remove: ", id);
-        const newArray = [...tasks];
+        const newArray = [...userContext.tasks];
         // Remove item at indexToRemove using splice
         newArray.splice(id, 1);
         // Update state with the new array
-        setTasks(newArray);
+        userContext.setTasks(newArray);
     }
 
     function AddTask(text) {
-        let newArray = tasks;
+        let newArray = userContext.tasks;
         newArray.push(text);
-        setTasks(newArray);
+        userContext.setTasks(newArray);
+        //push task to database
     }
 
     return (
@@ -69,8 +71,8 @@ function App() {
                             timerState={timerState}
                             setTimerState={setTimerState}
                             setTimer={setTimer}
-                            tasks={tasks}
-                            setTasks={setTasks}
+                            tasks={userContext.tasks}
+                            setTasks={userContext.setTasks}
                             removeTask={RemoveTask}
                             addTask={AddTask}
                         />
