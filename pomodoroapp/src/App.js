@@ -16,6 +16,7 @@ function App() {
     );
 
     useEffect(() => {
+        document.title = "Jack King's Portfolio";
         GetBackground(AssignPhotos);
     }, []);
 
