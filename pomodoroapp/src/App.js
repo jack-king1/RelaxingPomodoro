@@ -38,15 +38,6 @@ function App() {
         setBackgroundImg(fetchedObj.src.landscape);
     }
 
-    function RemoveTask(id) {
-        console.log("remove: ", id);
-        const newArray = [...userContext.tasks];
-        // Remove item at indexToRemove using splice
-        newArray.splice(id, 1);
-        // Update state with the new array
-        userContext.setTasks(newArray);
-    }
-
     function AddTask(text) {
         let newArray = userContext.tasks;
         newArray.push(text);
@@ -73,7 +64,6 @@ function App() {
                             setTimer={setTimer}
                             tasks={userContext.tasks}
                             setTasks={userContext.setTasks}
-                            removeTask={RemoveTask}
                             addTask={AddTask}
                         />
                     </div>

@@ -22,7 +22,6 @@ function Home(props) {
             <TasksHolder
                 tasks={props.tasks}
                 setTasks={props.setTasks}
-                removeTask={props.removeTask}
                 addTask={props.addTask}
             />
         </div>

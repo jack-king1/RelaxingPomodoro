@@ -60,6 +60,29 @@ app.post("/newtask", async (req, res) => {
     }
 });
 
+app.post("/deletetask", async (req, res) => {
+    console.log("@/deletetask");
+    //data to send to server
+    console.log(req.body);
+    const googleid = req.body.googleId;
+    const taskText = req.body.tasktext;
+    console.log("Values: ", googleid, taskText);
+    //this needs to be hased before sent over server.
+    try {
+        let request = new sql.Request();
+        request.input("googleid", sql.VarChar, googleid);
+        request.input("tasktext", sql.VarChar, taskText);
+
+        const query =
+            "DELETE FROM Tasks WHERE task_text = @tasktext AND @googleid = Tasks.google_id";
+        const result = await request.query(query);
+        res.json(result);
+    } catch (err) {
+        console.log(err);
+        res.status(500);
+    }
+});
+
 app.post("/newuser", async (req, res) => {
     console.log("@/newuser");
     //data to send to server

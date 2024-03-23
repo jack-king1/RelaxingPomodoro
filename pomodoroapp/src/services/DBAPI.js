@@ -43,3 +43,19 @@ export async function setTask(googleId, tasktext) {
     console.log(responseData); // Log response data for debugging
     return responseData; // Return response data
 }
+
+export async function deleteTask(googleId, tasktext) {
+    console.log("@deletetask: ", googleId, tasktext);
+
+    const response = await fetch("http://localhost:3005/deletetask", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ googleId, tasktext }), // Send googleId and task text in the request body
+    });
+
+    const responseData = await response.json(); // Parse response JSON
+    console.log(responseData); // Log response data for debugging
+    return responseData; // Return response data
+}

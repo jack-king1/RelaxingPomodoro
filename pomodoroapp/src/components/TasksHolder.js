@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { FaSquarePlus, FaSquareMinus } from "react-icons/fa6";
 import Task from "./Task";
-import { setTask } from "../services/DBAPI";
+import { deleteTask, setTask } from "../services/DBAPI";
 import { UserContext } from "../Contexts/UserContext";
 
 function TasksHolder(props) {
@@ -18,6 +18,19 @@ function TasksHolder(props) {
 
             setTaskInput("");
         }
+    }
+
+    function removeTask(id) {
+        console.log("remove: ", id);
+        const newArray = [...userContext.tasks];
+        if (userContext.user != null && userContext.loggedIn) {
+            //if user logged in send task to database to save.
+            deleteTask(userContext.user.id, userContext.tasks[id]);
+        }
+        // Remove item at indexToRemove using splice
+        newArray.splice(id, 1);
+        // Update state with the new array
+        userContext.setTasks(newArray);
     }
 
     function HandleInput(e) {
@@ -54,7 +67,7 @@ function TasksHolder(props) {
                     return (
                         <Task
                             key={index}
-                            removeTask={props.removeTask}
+                            removeTask={removeTask}
                             id={index}
                             text={task}
                         />
