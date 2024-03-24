@@ -4,6 +4,9 @@ export default class PomodoroTimer {
         this.shortBreak = shortBreak;
         this.longBreak = longBreak;
         this.isPaused = isPaused;
+        // this.liveMinutes = 0;
+        // this.liveSeconds = 5;
+
         this.liveMinutes = pomodoroTime;
         this.liveSeconds = 0;
     }
@@ -52,5 +55,10 @@ export default class PomodoroTimer {
 
     StopTimer() {
         this.isPaused = true;
+    }
+
+    IsFinnished() {
+        console.log(this.liveMinutes, this.liveSeconds);
+        return this.liveMinutes == 0 && this.liveSeconds == 0;
     }
 }

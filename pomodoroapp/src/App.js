@@ -1,22 +1,25 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Home from "./pages/Home";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { GetBackground } from "./services/PexelsAPI";
 import PomodoroTimer from "./models/PomodoroTimer";
 import { UserContext } from "./Contexts/UserContext";
+import useSound from "use-sound";
+import endSfx from "./audio/end.mp3";
 
 function App() {
     const userContext = useContext(UserContext);
+    const [te, setTE] = useState(false); // Initialize with initial value //keep track if timer has reached 00:00
     const [bgImg, setBackgroundImg] = useState(null);
     const [timer, setTimer] = useState(null);
     const [timerState, setTimerState] = useState("POMODORO");
     const [pomodoroTimer, setPomodoroTimer] = useState(
         new PomodoroTimer(25, 5, 15, true)
     );
+    const [endaudio] = useSound(endSfx);
 
     useEffect(() => {
-        document.title = "Jack King's Portfolio";
         GetBackground(AssignPhotos);
     }, []);
 
@@ -27,12 +30,20 @@ function App() {
                 time.minutes.toString().padStart(2, "0") +
                 ":" +
                 time.seconds.toString().padStart(2, "0");
+            //check if timer has ended to see if sound should play
+            if (pomodoroTimer.IsFinnished() && !te) {
+                console.log("ended");
+                endaudio();
+                setTE(true);
+            } else {
+                console.log("Not ended.");
+            }
             setTimer(time);
         }, 1000); // Update the timer every second
 
         // Clean up the interval on component unmount
         return () => clearInterval(intervalId);
-    }, [bgImg]);
+    }, [bgImg, te]);
 
     function AssignPhotos(fetchedObj) {
         console.log("Assigned Photo: ", fetchedObj);

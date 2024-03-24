@@ -1,9 +1,18 @@
 import React, { useState } from "react";
 import { FaCirclePause, FaCirclePlay } from "react-icons/fa6";
+import useSound from "use-sound";
+import startSfx from "../audio/start.mp3";
+import endSfx from "../audio/end.mp3";
 
 function TimerDisplay(props) {
     const [pauseBtnToggle, setPauseBtnToggle] = useState(true);
+    const [startaudio] = useSound(startSfx);
+
     function PauseToggle() {
+        if (props.time.minutes == 25) {
+            //play start audio
+            startaudio();
+        }
         setPauseBtnToggle(!pauseBtnToggle);
         props.pomodoro.PauseTimer();
     }
@@ -15,7 +24,6 @@ function TimerDisplay(props) {
 
     function setTimerState(state) {
         props.setTimerState(state);
-        console.log(props.pomodoro.longBreak);
         //pause timer on state change
         StopTimer();
         if (state == "LONG") {
@@ -52,6 +60,10 @@ function TimerDisplay(props) {
                 </div>
             );
         }
+    }
+
+    function CheckIfRerender() {
+        console.log("i am being called!!!!");
     }
     return (
         <div className="bg-black bg-opacity-70 h-auto w-full text-white font-martian flex flex-col flex-center items-center rounded-3xl p-6">
