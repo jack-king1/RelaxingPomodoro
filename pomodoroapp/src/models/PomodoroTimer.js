@@ -4,9 +4,6 @@ export default class PomodoroTimer {
         this.shortBreak = shortBreak;
         this.longBreak = longBreak;
         this.isPaused = isPaused;
-        // this.liveMinutes = 0;
-        // this.liveSeconds = 5;
-
         this.liveMinutes = pomodoroTime;
         this.liveSeconds = 0;
     }
