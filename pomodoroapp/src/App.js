@@ -10,7 +10,7 @@ import endSfx from "./audio/end.mp3";
 
 function App() {
     const userContext = useContext(UserContext);
-    const [te, setTE] = useState(false); // Initialize with initial value //keep track if timer has reached 00:00
+    const [te, setTE] = useState(false); // Initialize with initial value //keep track if timer has reached 00:00 te = TIMER END
     const [bgImg, setBackgroundImg] = useState(null);
     const [timer, setTimer] = useState(null);
     const [timerState, setTimerState] = useState("POMODORO");
@@ -24,6 +24,7 @@ function App() {
     }, []);
 
     useEffect(() => {
+        pomodoroTimer.InitTimer();
         const intervalId = setInterval(() => {
             let time = pomodoroTimer.CountDownTimer();
             document.title =

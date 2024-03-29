@@ -62,9 +62,6 @@ function TimerDisplay(props) {
         }
     }
 
-    function CheckIfRerender() {
-        console.log("i am being called!!!!");
-    }
     return (
         <div className="bg-black bg-opacity-70 h-auto w-full text-white font-martian flex flex-col flex-center items-center rounded-3xl p-6">
             <div className="flex flex-row justify-center gap-6 w-full">
