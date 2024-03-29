@@ -41,6 +41,8 @@ function TimerDisplay(props) {
     function Pomodoro() {
         console.log("Counting!");
         setTimer(pomodoroTimer.CountDownTimerDateTime());
+        document.title =
+            pomodoroTimer.liveMinutes + ":" + pomodoroTimer.liveSeconds;
     }
 
     function StopTimer() {
