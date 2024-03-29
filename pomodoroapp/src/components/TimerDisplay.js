@@ -21,13 +21,14 @@ function TimerDisplay(props) {
     }, []);
 
     function PauseToggle() {
+        console.log("Tooggllle");
         if (pomodoroTimer.liveMinutes == 25) {
             //play start audio
             startaudio();
         }
         setPauseBtnToggle(!pauseBtnToggle);
         pomodoroTimer.PauseTimer();
-        if (pomodoroTimer.isPaused) {
+        if (!pomodoroTimer.isPaused) {
             let intervalId = setInterval(Pomodoro, 250);
             setTimerIntervalId(intervalId);
         } else {
@@ -38,7 +39,8 @@ function TimerDisplay(props) {
     }
 
     function Pomodoro() {
-        pomodoroTimer.CountDownTimerDateTime();
+        console.log("Counting!");
+        setTimer(pomodoroTimer.CountDownTimerDateTime());
     }
 
     function StopTimer() {

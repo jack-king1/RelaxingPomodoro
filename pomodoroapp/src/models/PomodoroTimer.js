@@ -26,14 +26,14 @@ export default class PomodoroTimer {
 
     CountDownTimerDateTime() {
         // Calculate the elapsed time in seconds
-        console.log("is Paused?", this.isPaused);
+
         if (!this.isPaused) {
+            console.log("is Paused?", this.isPaused);
             let elapsedTime = Math.floor(
                 (Date.now() - this.startTimerDateTime) / 1000 -
                     this.totalPauseTime
             );
-
-            console.log("Total Pause Duration:", this.totalPauseTime);
+            console.log("Elapsed Time: ", elapsedTime);
             // Calculate remaining time in seconds
             let remainingTime = this.activeStateTime * 60 - elapsedTime; // 25 minutes in seconds
 
