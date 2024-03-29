@@ -1,20 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaCirclePause, FaCirclePlay } from "react-icons/fa6";
 import useSound from "use-sound";
 import startSfx from "../audio/start.mp3";
 import endSfx from "../audio/end.mp3";
+import PomodoroTimer from "../models/PomodoroTimer";
 
 function TimerDisplay(props) {
     const [pauseBtnToggle, setPauseBtnToggle] = useState(true);
     const [startaudio] = useSound(startSfx);
+    const [te, setTE] = useState(false); // Initialize with initial value //keep track if timer has reached 00:00 te = TIMER END
+    const [timer, setTimer] = useState(null);
+    const [pomodoroTimer, setPomodoroTimer] = useState(
+        new PomodoroTimer(25, 5, 15, true)
+    );
+    const [timerIntervalId, setTimerIntervalId] = useState(null);
+    const [timerState, setTimerState] = useState("POMODORO");
+
+    useEffect(() => {
+        pomodoroTimer.InitTimer();
+    }, []);
 
     function PauseToggle() {
-        if (props.time.minutes == 25) {
+        if (pomodoroTimer.liveMinutes == 25) {
             //play start audio
             startaudio();
         }
         setPauseBtnToggle(!pauseBtnToggle);
-        props.pomodoro.PauseTimer();
+        pomodoroTimer.PauseTimer();
+        if (pomodoroTimer.isPaused) {
+            let intervalId = setInterval(Pomodoro, 250);
+            setTimerIntervalId(intervalId);
+        } else {
+            //clear interval and set pause timer time to now
+            pomodoroTimer.pauseTime = Date.now();
+            clearInterval(timerIntervalId);
+        }
+    }
+
+    function Pomodoro() {
+        pomodoroTimer.CountDownTimerDateTime();
     }
 
     function StopTimer() {
@@ -22,7 +46,7 @@ function TimerDisplay(props) {
         props.pomodoro.StopTimer();
     }
 
-    function setTimerState(state) {
+    function setNewTimerState(state) {
         props.setTimerState(state);
         //pause timer on state change
         StopTimer();
@@ -66,7 +90,7 @@ function TimerDisplay(props) {
         <div className="bg-black bg-opacity-70 h-auto w-full text-white font-martian flex flex-col flex-center items-center rounded-3xl p-6">
             <div className="flex flex-row justify-center gap-6 w-full">
                 <div
-                    onClick={() => setTimerState("POMODORO")}
+                    onClick={() => setNewTimerState("POMODORO")}
                     className={`text-center flex items-center  items-center hover:cursor-pointer p-1 rounded font-numans ${
                         props.timerState == "POMODORO"
                             ? "text-black bg-white"
@@ -76,7 +100,7 @@ function TimerDisplay(props) {
                     <div>Pomodoro</div>
                 </div>
                 <div
-                    onClick={() => setTimerState("SHORT")}
+                    onClick={() => setNewTimerState("SHORT")}
                     className={`text-center flex items-center hover:cursor-pointer font-numans p-1 rounded ${
                         props.timerState == "SHORT"
                             ? "text-black bg-white"
@@ -86,7 +110,7 @@ function TimerDisplay(props) {
                     <div>Short Break</div>
                 </div>
                 <div
-                    onClick={() => setTimerState("LONG")}
+                    onClick={() => setNewTimerState("LONG")}
                     className={`text-center flex items-center hover:cursor-pointer font-numans p-1 rounded ${
                         props.timerState == "LONG"
                             ? "text-black bg-white"
@@ -98,8 +122,8 @@ function TimerDisplay(props) {
             </div>
             <div className="opacity-100 text-8xl text-center w-full">
                 <div>
-                    {props.time.minutes.toString().padStart(2, "0")}:
-                    {props.time.seconds.toString().padStart(2, "0")}
+                    {pomodoroTimer.liveMinutes.toString().padStart(2, "0")}:
+                    {pomodoroTimer.liveSeconds.toString().padStart(2, "0")}
                 </div>
             </div>
             {RenderPauseBtn()}
