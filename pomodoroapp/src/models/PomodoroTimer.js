@@ -14,7 +14,8 @@ export default class PomodoroTimer {
         //pause
         this.isPaused = isPaused;
         this.pauseTime = 0; //the time the timer was paused
-        this.totalPauseTime = 0; //the total time paused e.g. user pauses, unpauses, then pauses again, gets the total pause duration to offset timer.
+        this.totalPauseTime = 1; //the total time paused e.g. user pauses, unpauses, then pauses again, gets the total pause duration to offset timer.
+        this.timerStarted = false;
     }
 
     //This function is to set the date time value to keep track of the difference between start and current time
@@ -29,10 +30,9 @@ export default class PomodoroTimer {
 
         if (!this.isPaused) {
             console.log("is Paused?", this.isPaused);
-            let elapsedTime = Math.floor(
+            let elapsedTime =
                 (Date.now() - this.startTimerDateTime) / 1000 -
-                    this.totalPauseTime
-            );
+                this.totalPauseTime;
             console.log("Elapsed Time: ", elapsedTime);
             // Calculate remaining time in seconds
             let remainingTime = this.activeStateTime * 60 - elapsedTime; // 25 minutes in seconds
@@ -42,7 +42,7 @@ export default class PomodoroTimer {
 
             // Convert remaining time to minutes and seconds
             let minutes = Math.floor(remainingTime / 60);
-            let seconds = remainingTime % 60;
+            let seconds = Math.floor(remainingTime % 60);
 
             //Assign to timer values.
             this.liveMinutes = minutes;
@@ -78,7 +78,7 @@ export default class PomodoroTimer {
         if (this.isPaused) {
             this.pauseTime = Date.now();
         } else {
-            let elapsedTime = Math.floor((Date.now() - this.pauseTime) / 1000);
+            let elapsedTime = (Date.now() - this.pauseTime) / 1000;
             this.totalPauseTime += elapsedTime;
         }
     }

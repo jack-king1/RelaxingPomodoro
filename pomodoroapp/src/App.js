@@ -16,6 +16,7 @@ function App() {
 
     useEffect(() => {
         GetBackground(AssignPhotos);
+        document.title = "25:00";
     }, []);
 
     function AssignPhotos(fetchedObj) {
