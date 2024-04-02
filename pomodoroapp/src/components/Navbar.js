@@ -29,10 +29,14 @@ function Navbar() {
                         >
                             Log out
                         </button>
-                        <img
-                            className="max-w-8 rounded-full"
-                            src={userContext.user.picture}
-                        ></img>
+                        {userContext != null && (
+                            <img
+                                className="max-w-8 rounded-full"
+                                src={userContext.user.picture}
+                            >
+                                {console.log(userContext.user)}
+                            </img>
+                        )}
                     </div>
                 ) : (
                     <div>
